@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<title>SmartOverlays</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta name="theme-color" content="#a90329">
+	<link rel="stylesheet" type="text/css" href="handgestar_stylesheets/normalize.css" media="screen">
+	<link href='https://fonts.googleapis.com/css?family=Open+Sans:400,700' rel='stylesheet' type='text/css'>
+	<link rel="stylesheet" type="text/css" href="handgestar_stylesheets/stylesheet.css" media="screen">
+	<link rel="stylesheet" type="text/css" href="handgestar_stylesheets/github-light.css" media="screen">
+	<link rel="shortcut icon" href="handgestar_img/favicon.ico" />
+	<script type="text/javascript" async
+	  src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/2.7.2/MathJax.js?config=TeX-MML-AM_CHTML">
+	</script>
+	<!-- <script>
+		(function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+		(i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+		m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+		})(window,document,'script','https://www.google-analytics.com/analytics.js','ga');
+		ga('create', 'UA-101653083-3', 'auto');
+		ga('send', 'pageview');
+	</script> -->
+</head>
+
+<body>
+	<section class="page-header">
+		<h1 class="project-name">SmartOverlays</h1>
+		<h2 class="project-tagline">A Method For Optimal Placement Of Textual Labels For Augmented Reality Applications</h2>
+		<h2 class="project-authors"><a class = ".a_light" href="#author1"><b>Neel Rakholia\(^*\)</b></a> ,<a href="http://home.iiitd.edu.in/~srinidhi13164/"><b>Srinidhi Hegde\(^*\)</b></a>, <a href="#author3"><b>Ramya Hebbalaguppe</b></a></h2>
+		<a href="#video1" class="btn">Demo Video</a>
+		<!-- <a href="#video2" class="btn">Demo Video 2</a>
+		<a href="https://github.com/handgestar/EgoGestAR" target="_blank" class="btn">EgoGestAR Dataset and Codebase</a>
+		 <a href="https://github.com/handgestar/HandGestAR" target="_blank" class="btn">Videos Dataset for Testing</a>-->
+	</section>
+
+	<section class="main-content">
+		<h3><a id="welcome-to-handgestar" class="anchor" href="#welcome-to-handgestar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Abstract</h3>
+		<p align="justify"> Textual overlays/labels add contextual information in Augmented Reality (AR) applications. The spatial placement of labels is a challenging task due to constraints that (i) labels should not occlude the object/scene of interest, and, (ii) are optimally placed for better interpretation of scene. To this end, we present a novel method for optimal placement of labels for AR, named SmartOverlays. We formulate SmartOverlays by an objective function that minimizes both occlusion with visually salient regions in scenes of interest, and the temporal jitter for facilitating coherence in real-time AR applications. The main focus of proposed algorithm is real-time label placement on low-end android phones/tablets. The sophisticated state-of-the-art algorithms for optimal positioning of textual label work only on the images and often inefficient for real-time performance on those devices. We demonstrate the efficiency of our method by porting the algorithm on a smart-phone/tablet. Further, we capture objective and subjective metrics to determine the efficacy of the method; objective metrics include computation time taken for computing the label location and Saliency Occlusion (SO) score over salient regions in the scene. Subjective metrics include position, temporal coherence in the overlay, color and responsiveness. </p>
+
+		<h3><a id="welcome-to-handgestar" class="anchor" href="#welcome-to-handgestar" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Key Contribution</h3>
+		<ol>
+			<li> We present a label placement algorithm that works in real-time, on low-end android devices such as a smartphone and a tablet.
+			<li> Label placement is formulated as an objective function parameterised by image saliency and temporal jitter.
+			<li> We introduce a new evaluation metric, Saliency Occlusion score, for measuring the effectiveness of overlay placement.
+		</ol></p>
+
+
+		<h3><a id="the-idea" class="anchor" href="#the-idea" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Idea</h3>
+		<p><img src="handgestar_img/pipeline.png"></p><!-- https://handgestar.github.io/ -->
+		
+		<p align="justify"> RGB video stream in real-time is the input for our algorithm. We compute the saliency map of the incoming video frames using method proposed by <a href="http://ieeexplore.ieee.org/document/5206596/"><i>Achanta et al</i></a>. It then iterates through the pixel values provided in the search space and sums up the saliency values given by the map in a hypothetical box of size \(O_h , O_w\). The pixel value with the lowest sum is picked as the ideal candidate suggesting lowest salience. The overlay is shifted if the Euclidean distance, \(d\), between the previous position and the current position scaled by \(λ\), jitter parameter, is as low as possible. To combine the constraints posed by both low saliency and temporal jitter we formulate an optimization problem, as follows:
+			$$\begin{equation}
+			\begin{aligned}
+			& \underset{(X,Y)}{\text{minimize}}
+			& S((X,Y)) + \lambda d((X,Y); (X_p, Y_p)) \\
+			& \text{subject to}
+			& X \leq F_w - O_w, \quad X \geq 0\\
+			& & Y \leq F_h - O_h, \quad Y \geq 0
+			\end{aligned}
+			\end{equation}$$
+		</p>
+
+
+		<!-- <h3><a id="authors" class="anchor" href="#authors" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>The Authors</h3>
+		<div class="authors-wrapper">
+			<div class="authors-item">
+				<a href="https://www.linkedin.com//"" target="_blank"><div class="circle"><img src="" width="140" height="140"/></div></a>
+				<p></p>
+			</div>
+			<div class="authors-item">
+				<a href="https://www.linkedin.com//" target="_blank"><div class="circle"><img src="" width="140" height="140"/></div></a>
+				<p></p>
+			</div>
+			<div class="authors-item">
+				<a href="https://www.linkedin.com//" target="_blank"><div class="circle"><img src="" width="140" height="140"/></div></a>
+				<p></p>
+			</div>
+		</div> -->
+
+		<!-- <h3><a id="video1" class="anchor" href="#video1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo Video: 1</h3>
+		<video src="https://handgestar.github.io/handgestar_img/demo_video_0_watermark.mp4" align='center' width="100%" height="100%" controls preload></video>
+		
+		<h3><a id="video2" class="anchor" href="#video2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo Video: 2</h3>
+		<video src="https://handgestar.github.io/handgestar_img/demo_video_1_watermark.mp4" align='center' width="100%" height="100%" controls preload></video> -->
+
+		<h3><a id="app1" class="anchor" href="#app1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Application</h3>
+
+		<p><img src="handgestar_img/high-level-flow.png"></p>
+
+		<p align="justify">We have a developped an application to test our hypothesis. At a high level, the live feed captured from a tablet (or a handheld mobile device) is sent to SmartOverlay algorithm that runs on device for overlaying contextual labels for a scene, which aids in better interpretation of the scene.</p>
+
+		<h3><a id="video1" class="anchor" href="#video1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Demo Video</h3>
+		<div class="video-responsive">
+		<iframe width="560" height="315" src="https://www.youtube.com/embed/ab0nm4pL3b8" frameborder="0" gesture="media" allow="encrypted-media" allowfullscreen></iframe>
+		</div>
+	</section>
+
+</body>
+</html>
